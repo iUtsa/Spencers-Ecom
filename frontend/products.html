@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halloween Products - Spencer's Store</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="products.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">
+                    <span class="logo-text">SPENCER'S</span>
+                    <span class="logo-halloween">🎃</span>
+                </a>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html" class="active">Products</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <div class="search-container">
+                    <input type="text" placeholder="Search products..." class="search-input" id="searchInput">
+                    <button class="search-btn">🔍</button>
+                </div>
+                <div class="cart-icon" id="cartIcon">
+                    🛒
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <a href="index.html">Home</a> > <span>Products</span>
+        </div>
+    </div>
+
+    <!-- Products Header -->
+    <section class="products-header">
+        <div class="container">
+            <h1>Halloween Products</h1>
+            <p>Discover our spine-chilling collection of costumes, decorations, and accessories</p>
+        </div>
+    </section>
+
+    <!-- Filters & Sort -->
+    <section class="products-controls">
+        <div class="container">
+            <div class="controls-wrapper">
+                <div class="filters">
+                    <button class="filter-toggle" id="filterToggle">
+                        🎛️ Filters
+                    </button>
+                    <div class="filter-tags" id="activeFilters">
+                        <!-- Active filters will appear here -->
+                    </div>
+                </div>
+                
+                <div class="sort-controls">
+                    <label for="sortSelect">Sort by:</label>
+                    <select id="sortSelect">
+                        <option value="featured">Featured</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="rating">Customer Rating</option>
+                        <option value="newest">Newest First</option>
+                        <option value="popularity">Most Popular</option>
+                    </select>
+                </div>
+                
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="grid">⊞</button>
+                    <button class="view-btn" data-view="list">☰</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="products-main">
+        <div class="container">
+            <div class="products-layout">
+                <!-- Sidebar Filters -->
+                <aside class="filters-sidebar" id="filtersSidebar">
+                    <div class="filter-section">
+                        <h3>Category</h3>
+                        <div class="filter-group">
+                            <label><input type="checkbox" value="costume"> Costumes</label>
+                            <label><input type="checkbox" value="decoration"> Decorations</label>
+                            <label><input type="checkbox" value="accessory"> Accessories</label>
+                            <label><input type="checkbox" value="makeup"> Makeup & FX</label>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <h3>Price Range</h3>
+                        <div class="price-range">
+                            <input type="range" id="priceMin" min="0" max="500" value="0">
+                            <input type="range" id="priceMax" min="0" max="500" value="500">
+                            <div class="price-labels">
+                                <span id="minPrice">$0</span> - <span id="maxPrice">$500</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <h3>Size</h3>
+                        <div class="filter-group">
+                            <label><input type="checkbox" value="xs"> XS</label>
+                            <label><input type="checkbox" value="s"> S</label>
+                            <label><input type="checkbox" value="m"> M</label>
+                            <label><input type="checkbox" value="l"> L</label>
+                            <label><input type="checkbox" value="xl"> XL</label>
+                            <label><input type="checkbox" value="xxl"> XXL</label>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <h3>Brand</h3>
+                        <div class="filter-group">
+                            <label><input type="checkbox" value="spencers"> Spencer's Exclusive</label>
+                            <label><input type="checkbox" value="rubie"> Rubie's</label>
+                            <label><input type="checkbox" value="morphsuits"> Morphsuits</label>
+                            <label><input type="checkbox" value="leg-avenue"> Leg Avenue</label>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <h3>Rating</h3>
+                        <div class="filter-group">
+                            <label><input type="radio" name="rating" value="4"> ⭐⭐⭐⭐ & up</label>
+                            <label><input type="radio" name="rating" value="3"> ⭐⭐⭐ & up</label>
+                            <label><input type="radio" name="rating" value="2"> ⭐⭐ & up</label>
+                        </div>
+                    </div>
+
+                    <button class="clear-filters" id="clearFilters">Clear All Filters</button>
+                </aside>
+
+                <!-- Products Grid -->
+                <div class="products-content">
+                    <div class="products-info">
+                        <span id="resultsCount">Loading products...</span>
+                    </div>
+                    
+                    <div class="products-grid" id="productsGrid">
+                        <!-- Products will be loaded here -->
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination" id="pagination">
+                        <!-- Pagination will be generated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Product Quick View Modal -->
+    <div class="quick-view-modal" id="quickViewModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeQuickView">×</button>
+            <div class="quick-view-content">
+                <div class="product-images">
+                    <div class="main-image" id="quickViewMainImage"></div>
+                    <div class="thumbnail-gallery" id="quickViewThumbnails"></div>
+                </div>
+                <div class="product-details">
+                    <h2 id="quickViewName"></h2>
+                    <div class="product-rating" id="quickViewRating"></div>
+                    <div class="product-price" id="quickViewPrice"></div>
+                    <div class="product-description" id="quickViewDescription"></div>
+                    
+                    <div class="product-options">
+                        <div class="size-selector" id="quickViewSizes">
+                            <label>Size:</label>
+                            <select id="sizeSelect">
+                                <option value="">Select Size</option>
+                            </select>
+                        </div>
+                        
+                        <div class="quantity-selector">
+                            <label>Quantity:</label>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" id="qtyMinus">-</button>
+                                <input type="number" id="quantity" value="1" min="1">
+                                <button class="qty-btn" id="qtyPlus">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="add-to-cart-btn" id="quickViewAddToCart">Add to Cart</button>
+                        <button class="wishlist-btn" id="quickViewWishlist">♡</button>
+                        <button class="share-btn" id="quickViewShare">Share</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="close-cart" id="closeCart">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                Total: $<span id="cartTotal">0.00</span>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="three-scenes.js"></script>
+    <script src="cart.js"></script>
+    <script src="products.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Spencer's Halloween Store</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/product-detail.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <a href="index.html">
+                        <i class="fas fa-ghost"></i>
+                        Spencer's Halloween
+                    </a>
+                </div>
+                
+                <div class="nav-menu" id="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="products.html" class="nav-link">Products</a>
+                    <a href="categories.html" class="nav-link">Categories</a>
+                    <a href="account.html" class="nav-link">Account</a>
+                    <div class="nav-link cart-link" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cart-count">0</span>
+                    </div>
+                </div>
+                
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <div class="container">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <a href="products.html">Products</a>
+                <span>/</span>
+                <span id="breadcrumb-category">Costumes</span>
+                <span>/</span>
+                <span id="breadcrumb-product">Loading...</span>
+            </div>
+        </div>
+
+        <div class="product-detail-container">
+            <div class="product-gallery">
+                <div class="main-image">
+                    <img id="main-product-image" src="" alt="Product Image" class="product-image">
+                    <div class="image-zoom-overlay" id="zoom-overlay"></div>
+                </div>
+                <div class="thumbnail-gallery" id="thumbnail-gallery">
+                    <!-- Thumbnails will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="product-info">
+                <h1 class="product-title" id="product-title">Loading...</h1>
+                <div class="product-rating">
+                    <div class="stars" id="product-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <span class="rating-count" id="rating-count">(0 reviews)</span>
+                </div>
+
+                <div class="product-price">
+                    <span class="current-price" id="current-price">$0.00</span>
+                    <span class="original-price" id="original-price">$0.00</span>
+                    <span class="discount-badge" id="discount-badge">-0%</span>
+                </div>
+
+                <div class="product-description" id="product-description">
+                    <p>Loading product description...</p>
+                </div>
+
+                <div class="product-options">
+                    <div class="size-selector" style="display: none;">
+                        <label>Size:</label>
+                        <div class="size-options" id="size-options">
+                            <!-- Size options will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="color-selector" style="display: none;">
+                        <label>Color:</label>
+                        <div class="color-options" id="color-options">
+                            <!-- Color options will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="quantity-selector">
+                        <label>Quantity:</label>
+                        <div class="quantity-controls">
+                            <button class="qty-btn" onclick="changeQuantity(-1)">-</button>
+                            <input type="number" id="quantity" value="1" min="1" max="10">
+                            <button class="qty-btn" onclick="changeQuantity(1)">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-actions">
+                    <button class="add-to-cart-btn" id="add-to-cart-btn" onclick="addToCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        Add to Cart
+                    </button>
+                    <button class="wishlist-btn" id="wishlist-btn" onclick="toggleWishlist()">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <button class="share-btn" onclick="shareProduct()">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                </div>
+
+                <div class="product-features">
+                    <div class="feature">
+                        <i class="fas fa-truck"></i>
+                        <span>Free shipping on orders over $50</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-undo"></i>
+                        <span>30-day return policy</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Secure payment</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-tabs">
+            <div class="tab-nav">
+                <button class="tab-btn active" onclick="showTab('description')">Description</button>
+                <button class="tab-btn" onclick="showTab('reviews')">Reviews</button>
+                <button class="tab-btn" onclick="showTab('shipping')">Shipping</button>
+            </div>
+
+            <div class="tab-content">
+                <div id="description-tab" class="tab-pane active">
+                    <div class="detailed-description" id="detailed-description">
+                        <p>Loading detailed description...</p>
+                    </div>
+                </div>
+
+                <div id="reviews-tab" class="tab-pane">
+                    <div class="reviews-section">
+                        <div class="reviews-summary">
+                            <h3>Customer Reviews</h3>
+                            <div class="rating-breakdown" id="rating-breakdown">
+                                <!-- Rating breakdown will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        <div class="reviews-list" id="reviews-list">
+                            <!-- Reviews will be populated by JavaScript -->
+                        </div>
+                        <button class="load-more-reviews" onclick="loadMoreReviews()">Load More Reviews</button>
+                    </div>
+                </div>
+
+                <div id="shipping-tab" class="tab-pane">
+                    <div class="shipping-info">
+                        <h3>Shipping Information</h3>
+                        <div class="shipping-options">
+                            <div class="shipping-option">
+                                <strong>Standard Shipping (5-7 business days)</strong>
+                                <span>Free on orders over $50, otherwise $5.99</span>
+                            </div>
+                            <div class="shipping-option">
+                                <strong>Express Shipping (2-3 business days)</strong>
+                                <span>$12.99</span>
+                            </div>
+                            <div class="shipping-option">
+                                <strong>Overnight Shipping</strong>
+                                <span>$24.99</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="related-products">
+            <h2>You Might Also Like</h2>
+            <div class="related-products-grid" id="related-products-grid">
+                <!-- Related products will be populated by JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Spencer's Halloween</h3>
+                <p>Your one-stop shop for the spookiest Halloween costumes and decorations!</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                    <li><a href="account.html">My Account</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Newsletter</h4>
+                <p>Get spooky deals and updates!</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Enter your email">
+                    <button type="submit">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Spencer's Halloween Store. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be populated by JavaScript -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>Total: $<span id="cart-total">0.00</span></strong>
+            </div>
+            <a href="checkout.html" class="checkout-btn">Checkout</a>
+        </div>
+    </div>
+
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" id="loading-spinner">
+        <div class="spinner"></div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/product-detail.js"></script>
+</body>
+</html>

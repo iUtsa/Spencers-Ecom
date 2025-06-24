@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories - Spencer's Halloween Store</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/categories.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <a href="index.html">
+                        <i class="fas fa-ghost"></i>
+                        Spencer's Halloween
+                    </a>
+                </div>
+                
+                <div class="nav-menu" id="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="products.html" class="nav-link">Products</a>
+                    <a href="categories.html" class="nav-link active">Categories</a>
+                    <a href="account.html" class="nav-link">Account</a>
+                    <div class="nav-link cart-link" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cart-count">0</span>
+                    </div>
+                </div>
+                
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="categories-hero">
+            <div class="hero-content">
+                <h1>Shop by Category</h1>
+                <p>Find the perfect Halloween essentials for your spooky celebration</p>
+            </div>
+            <div class="hero-background"></div>
+        </section>
+
+        <!-- Search and Filter Bar -->
+        <section class="filter-section">
+            <div class="container">
+                <div class="filter-bar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="category-search" placeholder="Search categories...">
+                    </div>
+                    
+                    <div class="filter-controls">
+                        <div class="sort-dropdown">
+                            <select id="sort-categories">
+                                <option value="name">Sort by Name</option>
+                                <option value="popularity">Most Popular</option>
+                                <option value="items">Most Items</option>
+                            </select>
+                        </div>
+                        
+                        <div class="view-toggle">
+                            <button class="view-btn active" data-view="grid" onclick="toggleView('grid')">
+                                <i class="fas fa-th"></i>
+                            </button>
+                            <button class="view-btn" data-view="list" onclick="toggleView('list')">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Grid -->
+        <section class="categories-section">
+            <div class="container">
+                <div class="categories-grid" id="categories-grid">
+                    <!-- Categories will be populated by JavaScript -->
+                </div>
+                
+                <div class="loading-placeholder" id="loading-placeholder">
+                    <div class="spinner"></div>
+                    <p>Loading categories...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Categories -->
+        <section class="featured-categories">
+            <div class="container">
+                <h2>Featured Collections</h2>
+                <div class="featured-grid">
+                    <div class="featured-card large">
+                        <div class="featured-image">
+                            <img src="https://images.unsplash.com/photo-1509557965350-b0c0d8c56b2f?w=600" alt="Halloween Costumes">
+                        </div>
+                        <div class="featured-content">
+                            <h3>Premium Costumes</h3>
+                            <p>Professional quality costumes for the ultimate Halloween transformation</p>
+                            <a href="products.html?category=premium-costumes" class="featured-btn">Shop Now</a>
+                        </div>
+                    </div>
+                    
+                    <div class="featured-card">
+                        <div class="featured-image">
+                            <img src="https://images.unsplash.com/photo-1544473244-47f9d28a8e2f?w=400" alt="Spooky Decorations">
+                        </div>
+                        <div class="featured-content">
+                            <h3>Spooky Decor</h3>
+                            <p>Transform your space into a haunted haven</p>
+                            <a href="products.html?category=decorations" class="featured-btn">Explore</a>
+                        </div>
+                    </div>
+                    
+                    <div class="featured-card">
+                        <div class="featured-image">
+                            <img src="https://images.unsplash.com/photo-1576073734374-b6b6b73b8d36?w=400" alt="Accessories">
+                        </div>
+                        <div class="featured-content">
+                            <h3>Accessories</h3>
+                            <p>Complete your look with the perfect finishing touches</p>
+                            <a href="products.html?category=accessories" class="featured-btn">Browse</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Trends -->
+        <section class="trends-section">
+            <div class="container">
+                <h2>Popular This Season</h2>
+                <div class="trends-grid">
+                    <div class="trend-item">
+                        <div class="trend-icon">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <h3>Royal Characters</h3>
+                        <p>Kings, Queens, and Medieval nobility</p>
+                        <span class="trend-badge">Trending</span>
+                    </div>
+                    
+                    <div class="trend-item">
+                        <div class="trend-icon">
+                            <i class="fas fa-magic"></i>
+                        </div>
+                        <h3>Fantasy Magic</h3>
+                        <p>Wizards, witches, and mystical creatures</p>
+                        <span class="trend-badge">Popular</span>
+                    </div>
+                    
+                    <div class="trend-item">
+                        <div class="trend-icon">
+                            <i class="fas fa-skull-crossbones"></i>
+                        </div>
+                        <h3>Classic Horror</h3>
+                        <p>Timeless scary characters and monsters</p>
+                        <span class="trend-badge">Classic</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Signup -->
+        <section class="newsletter-section">
+            <div class="container">
+                <div class="newsletter-content">
+                    <div class="newsletter-text">
+                        <h2>Stay in the Loop</h2>
+                        <p>Get exclusive deals, new arrivals, and Halloween inspiration delivered to your inbox</p>
+                    </div>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Enter your email address" id="newsletter-email">
+                        <button type="submit" onclick="subscribeNewsletter()">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Spencer's Halloween</h3>
+                <p>Your one-stop shop for the spookiest Halloween costumes and decorations!</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                    <li><a href="account.html">My Account</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Newsletter</h4>
+                <p>Get spooky deals and updates!</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Enter your email">
+                    <button type="submit">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Spencer's Halloween Store. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be populated by JavaScript -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>Total: $<span id="cart-total">0.00</span></strong>
+            </div>
+            <a href="checkout.html" class="checkout-btn">Checkout</a>
+        </div>
+    </div>
+
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+
+    <script src="js/main.js"></script>
+    <script src="js/categories.js"></script>
+</body>
+</html>

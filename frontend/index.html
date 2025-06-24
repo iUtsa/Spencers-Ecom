@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spencer's Halloween 3D Store</title>
+    <link rel="stylesheet" href="/frontend/assets/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-text">SPENCER'S</span>
+                <span class="logo-halloween">🎃</span>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#home" data-section="home">Home</a></li>
+                <li><a href="#costumes" data-section="costumes">Costumes</a></li>
+                <li><a href="#decorations" data-section="decorations">Decorations</a></li>
+                <li><a href="#accessories" data-section="accessories">Accessories</a></li>
+                <li><a href="#makeup" data-section="makeup">Makeup</a></li>
+                <li><a href="#collectibles" data-section="collectibles">Collectibles</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <div class="search-container">
+                    <input type="text" placeholder="Search Halloween items..." class="search-input" id="searchInput">
+                    <button class="search-btn">🔍</button>
+                </div>
+                <div class="cart-icon" id="cartIcon">
+                    🛒
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with 3D Background -->
+    <section class="hero" id="home">
+        <div id="three-container"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">HALLOWEEN UNLEASHED</h1>
+            <p class="hero-subtitle">Discover spine-chilling costumes, decorations & more</p>
+            <div class="hero-buttons">
+                <button class="cta-button primary" id="shopNowBtn">Shop Now</button>
+                <button class="cta-button secondary" id="exploreBtn">Explore 3D</button>
+            </div>
+        </div>
+        
+        <!-- Floating Halloween Elements -->
+        <div class="floating-elements">
+            <div class="floating-element bat">🦇</div>
+            <div class="floating-element ghost">👻</div>
+            <div class="floating-element pumpkin">🎃</div>
+            <div class="floating-element spider">🕷️</div>
+            <div class="floating-element skull">💀</div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories" id="categories">
+        <div class="container">
+            <h2 class="section-title">Featured Categories</h2>
+            <div class="categories-grid">
+                <div class="category-card" data-category="costumes">
+                    <div class="category-3d" id="costumes-3d"></div>
+                    <div class="category-content">
+                        <h3>Costumes</h3>
+                        <p>Transform into your darkest nightmares</p>
+                        <button class="category-btn">Explore</button>
+                    </div>
+                </div>
+                
+                <div class="category-card" data-category="decorations">
+                    <div class="category-3d" id="decorations-3d"></div>
+                    <div class="category-content">
+                        <h3>Decorations</h3>
+                        <p>Haunt your space with style</p>
+                        <button class="category-btn">Explore</button>
+                    </div>
+                </div>
+                
+                <div class="category-card" data-category="accessories">
+                    <div class="category-3d" id="accessories-3d"></div>
+                    <div class="category-content">
+                        <h3>Accessories</h3>
+                        <p>Complete your terrifying look</p>
+                        <button class="category-btn">Explore</button>
+                    </div>
+                </div>
+                
+                <div class="category-card" data-category="makeup">
+                    <div class="category-3d" id="makeup-3d"></div>
+                    <div class="category-content">
+                        <h3>Special FX Makeup</h3>
+                        <p>Master the art of horror</p>
+                        <button class="category-btn">Explore</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-products" id="featured">
+        <div class="container">
+            <h2 class="section-title">Trending This Halloween</h2>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be loaded dynamically -->
+                <div class="product-loading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading spine-chilling products...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive 3D Product Viewer -->
+    <div class="product-viewer-modal" id="productViewer">
+        <div class="viewer-content">
+            <button class="close-viewer" id="closeViewer">✕</button>
+            <div class="viewer-3d" id="viewer3D"></div>
+            <div class="viewer-info">
+                <h3 id="viewerProductName">Product Name</h3>
+                <p id="viewerProductPrice">$0.00</p>
+                <div class="viewer-controls">
+                    <button class="viewer-btn" id="addToCartBtn">Add to Cart</button>
+                    <button class="viewer-btn secondary" id="shareBtn">Share</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="close-cart" id="closeCart">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be populated here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total: $<span id="cartTotal">0.00</span></span>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-container" id="chatbot">
+        <div class="chatbot-header">
+            <span>🎃 Halloween Assistant</span>
+            <button class="minimize-chat" id="minimizeChat">−</button>
+        </div>
+        <div class="chatbot-messages" id="chatMessages">
+            <div class="bot-message">
+                <span class="bot-avatar">🎃</span>
+                <div class="message-content">
+                    Welcome to Spencer's! I'm your Halloween shopping assistant. How can I help you find the perfect scare today?
+                </div>
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" placeholder="Ask about Halloween products..." id="chatInput">
+            <button id="sendMessage">Send</button>
+        </div>
+    </div>
+    <button class="chatbot-toggle" id="chatToggle">💬</button>
+
+    <!-- Newsletter Popup -->
+    <div class="newsletter-popup" id="newsletterPopup">
+        <div class="popup-content">
+            <button class="close-popup" id="closeNewsletter">✕</button>
+            <div class="popup-halloween-icon">🎃</div>
+            <h3>Join the Nightmare</h3>
+            <p>Get exclusive Halloween deals and early access to new scary arrivals!</p>
+            <form class="newsletter-form" id="newsletterForm">
+                <input type="email" placeholder="Enter your email..." required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Spencer's Halloween</h4>
+                    <p>Your ultimate destination for all things spooky and fun!</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘</a>
+                        <a href="#" class="social-link">📷</a>
+                        <a href="#" class="social-link">🐦</a>
+                        <a href="#" class="social-link">📱</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="#costumes">Costumes</a></li>
+                        <li><a href="#decorations">Decorations</a></li>
+                        <li><a href="#accessories">Accessories</a></li>
+                        <li><a href="#makeup">Makeup</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#help">Help Center</a></li>
+                        <li><a href="#shipping">Shipping Info</a></li>
+                        <li><a href="#returns">Returns</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Spencer's Halloween Store. All rights reserved. | Internship Project</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/frontend/assets/three-scenes.js"></script>
+    <script src="/frontend/assets/cart.js"></script>
+    <script src="/frontend/assets/chatbot.js"></script>
+    <script src="/frontend/assets/main.js"></script>
+</body>
+</html>

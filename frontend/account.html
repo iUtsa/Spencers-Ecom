@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - Spencer's Halloween Store</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/account.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <a href="index.html">
+                        <i class="fas fa-ghost"></i>
+                        Spencer's Halloween
+                    </a>
+                </div>
+                
+                <div class="nav-menu" id="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="products.html" class="nav-link">Products</a>
+                    <a href="categories.html" class="nav-link">Categories</a>
+                    <a href="account.html" class="nav-link active">Account</a>
+                    <div class="nav-link cart-link" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cart-count">0</span>
+                    </div>
+                </div>
+                
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Login/Register Forms (shown when not logged in) -->
+        <div class="auth-container" id="auth-container">
+            <div class="auth-wrapper">
+                <div class="auth-toggle">
+                    <button class="auth-btn active" data-form="login" onclick="toggleAuthForm('login')">Login</button>
+                    <button class="auth-btn" data-form="register" onclick="toggleAuthForm('register')">Register</button>
+                </div>
+
+                <!-- Login Form -->
+                <form class="auth-form active" id="login-form">
+                    <h2>Welcome Back!</h2>
+                    <p>Sign in to access your account and exclusive deals</p>
+                    
+                    <div class="form-group">
+                        <label for="login-email">Email Address</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="login-email" name="email" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="login-password" name="password" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword('login-password')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="remember-me">
+                            <span class="checkmark"></span>
+                            Remember me
+                        </label>
+                        <a href="#" class="forgot-password" onclick="showForgotPassword()">Forgot Password?</a>
+                    </div>
+                    
+                    <button type="submit" class="auth-submit-btn" onclick="handleLogin(event)">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Sign In
+                    </button>
+                    
+                    <div class="social-login">
+                        <p>Or sign in with:</p>
+                        <div class="social-buttons">
+                            <button type="button" class="social-btn google" onclick="socialLogin('google')">
+                                <i class="fab fa-google"></i>
+                                Google
+                            </button>
+                            <button type="button" class="social-btn facebook" onclick="socialLogin('facebook')">
+                                <i class="fab fa-facebook-f"></i>
+                                Facebook
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Register Form -->
+                <form class="auth-form" id="register-form">
+                    <h2>Join the Fun!</h2>
+                    <p>Create an account for exclusive deals and faster checkout</p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="register-firstname">First Name</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-user"></i>
+                                <input type="text" id="register-firstname" name="firstName" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="register-lastname">Last Name</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-user"></i>
+                                <input type="text" id="register-lastname" name="lastName" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-email">Email Address</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="register-email" name="email" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="register-password" name="password" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword('register-password')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="password-strength" id="password-strength"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-confirm-password">Confirm Password</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="register-confirm-password" name="confirmPassword" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="newsletter-signup" checked>
+                            <span class="checkmark"></span>
+                            Subscribe to our newsletter for exclusive deals and Halloween tips
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="terms-agreement" required>
+                            <span class="checkmark"></span>
+                            I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="auth-submit-btn" onclick="handleRegister(event)">
+                        <i class="fas fa-user-plus"></i>
+                        Create Account
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Account Dashboard (shown when logged in) -->
+        <div class="account-dashboard" id="account-dashboard" style="display: none;">
+            <div class="dashboard-header">
+                <div class="container">
+                    <div class="welcome-section">
+                        <div class="user-avatar">
+                            <img id="user-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" alt="User Avatar">
+                            <div class="avatar-upload" onclick="uploadAvatar()">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                        </div>
+                        <div class="welcome-text">
+                            <h1>Welcome back, <span id="user-name">John Doe</span>!</h1>
+                            <p>Member since <span id="member-since">October 2024</span></p>
+                        </div>
+                        <div class="account-stats">
+                            <div class="stat-item">
+                                <div class="stat-value" id="total-orders">12</div>
+                                <div class="stat-label">Total Orders</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="total-spent">$486.50</div>
+                                <div class="stat-label">Total Spent</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="loyalty-points">2,430</div>
+                                <div class="stat-label">Loyalty Points</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-content">
+                <div class="container">
+                    <div class="dashboard-layout">
+                        <!-- Sidebar Navigation -->
+                        <div class="dashboard-sidebar">
+                            <nav class="account-nav">
+                                <a href="#" class="nav-item active" data-section="overview" onclick="showSection('overview')">
+                                    <i class="fas fa-chart-line"></i>
+                                    <span>Overview</span>
+                                </a>
+                                <a href="#" class="nav-item" data-section="orders" onclick="showSection('orders')">
+                                    <i class="fas fa-shopping-bag"></i>
+                                    <span>My Orders</span>
+                                    <span class="badge">3</span>
+                                </a>
+                                <a href="#" class="nav-item" data-section="wishlist" onclick="showSection('wishlist')">
+                                    <i class="fas fa-heart"></i>
+                                    <span>Wishlist</span>
+                                    <span class="badge">7</span>
+                                </a>
+                                <a href="#" class="nav-item" data-section="addresses" onclick="showSection('addresses')">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Addresses</span>
+                                </a>
+                                <a href="#" class="nav-item" data-section="payment" onclick="showSection('payment')">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span>Payment Methods</span>
+                                </a>
+                                <a href="#" class="nav-item" data-section="profile" onclick="showSection('profile')">
+                                    <i class="fas fa-user-cog"></i>
+                                    <span>Profile Settings</span>
+                                </a>
+                                <a href="#" class="nav-item" data-section="notifications" onclick="showSection('notifications')">
+                                    <i class="fas fa-bell"></i>
+                                    <span>Notifications</span>
+                                </a>
+                                <a href="#" class="nav-item logout" onclick="handleLogout()">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span>Logout</span>
+                                </a>
+                            </nav>
+                        </div>
+
+                        <!-- Main Content Area -->
+                        <div class="dashboard-main">
+                            <!-- Overview Section -->
+                            <div class="dashboard-section active" id="overview-section">
+                                <div class="section-header">
+                                    <h2>Account Overview</h2>
+                                    <p>Here's what's happening with your account</p>
+                                </div>
+
+                                <div class="overview-grid">
+                                    <div class="overview-card">
+                                        <div class="card-header">
+                                            <h3>Recent Orders</h3>
+                                            <a href="#" onclick="showSection('orders')">View All</a>
+                                        </div>
+                                        <div class="recent-orders" id="recent-orders">
+                                            <!-- Recent orders will be populated by JavaScript -->
+                                        </div>
+                                    </div>
+
+                                    <div class="overview-card">
+                                        <div class="card-header">
+                                            <h3>Quick Actions</h3>
+                                        </div>
+                                        <div class="quick-actions">
+                                            <button class="action-btn" onclick="window.location.href='products.html'">
+                                                <i class="fas fa-shopping-cart"></i>
+                                                Continue Shopping
+                                            </button>
+                                            <button class="action-btn" onclick="showSection('orders')">
+                                                <i class="fas fa-redo"></i>
+                                                Reorder Items
+                                            </button>
+                                            <button class="action-btn" onclick="showSection('addresses')">
+                                                <i class="fas fa-plus"></i>
+                                                Add Address
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="overview-card">
+                                        <div class="card-header">
+                                            <h3>Loyalty Program</h3>
+                                        </div>
+                                        <div class="loyalty-info">
+                                            <div class="loyalty-tier">
+                                                <i class="fas fa-crown"></i>
+                                                <span>Silver Member</span>
+                                            </div>
+                                            <div class="points-progress">
+                                                <div class="progress-bar">
+                                                    <div class="progress-fill" style="width: 72%"></div>
+                                                </div>
+                                                <p>2,430 points • 570 points to Gold</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="overview-card">
+                                        <div class="card-header">
+                                            <h3>Recommendations</h3>
+                                        </div>
+                                        <div class="recommendations" id="recommendations">
+                                            <!-- Recommendations will be populated by JavaScript -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Orders Section -->
+                            <div class="dashboard-section" id="orders-section">
+                                <div class="section-header">
+                                    <h2>My Orders</h2>
+                                    <div class="orders-filter">
+                                        <select id="orders-filter-select" onchange="filterOrders()">
+                                            <option value="all">All Orders</option>
+                                            <option value="pending">Pending</option>
+                                            <option value="shipped">Shipped</option>
+                                            <option value="delivered">Delivered</option>
+                                            <option value="cancelled">Cancelled</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="orders-list" id="orders-list">
+                                    <!-- Orders will be populated by JavaScript -->
+                                </div>
+                            </div>
+
+                            <!-- Wishlist Section -->
+                            <div class="dashboard-section" id="wishlist-section">
+                                <div class="section-header">
+                                    <h2>My Wishlist</h2>
+                                    <p>Items you've saved for later</p>
+                                </div>
+                                <div class="wishlist-grid" id="wishlist-grid">
+                                    <!-- Wishlist items will be populated by JavaScript -->
+                                </div>
+                            </div>
+
+                            <!-- Addresses Section -->
+                            <div class="dashboard-section" id="addresses-section">
+                                <div class="section-header">
+                                    <h2>Saved Addresses</h2>
+                                    <button class="add-btn" onclick="showAddAddressForm()">
+                                        <i class="fas fa-plus"></i>
+                                        Add New Address
+                                    </button>
+                                </div>
+                                <div class="addresses-grid" id="addresses-grid">
+                                    <!-- Addresses will be populated by JavaScript -->
+                                </div>
+                            </div>
+
+                            <!-- Payment Methods Section -->
+                            <div class="dashboard-section" id="payment-section">
+                                <div class="section-header">
+                                    <h2>Payment Methods</h2>
+                                    <button class="add-btn" onclick="showAddPaymentForm()">
+                                        <i class="fas fa-plus"></i>
+                                        Add Payment Method
+                                    </button>
+                                </div>
+                                <div class="payment-methods" id="payment-methods">
+                                    <!-- Payment methods will be populated by JavaScript -->
+                                </div>
+                            </div>
+
+                            <!-- Profile Settings Section -->
+                            <div class="dashboard-section" id="profile-section">
+                                <div class="section-header">
+                                    <h2>Profile Settings</h2>
+                                    <p>Manage your personal information</p>
+                                </div>
+                                <form class="profile-form" id="profile-form">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="profile-firstname">First Name</label>
+                                            <input type="text" id="profile-firstname" name="firstName" value="John">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="profile-lastname">Last Name</label>
+                                            <input type="text" id="profile-lastname" name="lastName" value="Doe">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="profile-email">Email Address</label>
+                                        <input type="email" id="profile-email" name="email" value="john.doe@email.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="profile-phone">Phone Number</label>
+                                        <input type="tel" id="profile-phone" name="phone" value="+1 (555) 123-4567">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="profile-birthday">Birthday</label>
+                                        <input type="date" id="profile-birthday" name="birthday" value="1990-01-15">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="profile-gender">Gender</label>
+                                        <select id="profile-gender" name="gender">
+                                            <option value="">Prefer not to say</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="save-btn" onclick="saveProfile(event)">
+                                        <i class="fas fa-save"></i>
+                                        Save Changes
+                                    </button>
+                                </form>
+
+                                <div class="security-section">
+                                    <h3>Security</h3>
+                                    <div class="security-item">
+                                        <div class="security-info">
+                                            <strong>Password</strong>
+                                            <span>Last changed 3 months ago</span>
+                                        </div>
+                                        <button class="change-btn" onclick="showChangePassword()">Change</button>
+                                    </div>
+                                    <div class="security-item">
+                                        <div class="security-info">
+                                            <strong>Two-Factor Authentication</strong>
+                                            <span>Not enabled</span>
+                                        </div>
+                                        <button class="enable-btn" onclick="enableTwoFactor()">Enable</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Notifications Section -->
+                            <div class="dashboard-section" id="notifications-section">
+                                <div class="section-header">
+                                    <h2>Notification Preferences</h2>
+                                    <p>Choose how you'd like to be notified</p>
+                                </div>
+                                <div class="notifications-form">
+                                    <div class="notification-category">
+                                        <h3>Order Updates</h3>
+                                        <div class="notification-options">
+                                            <label class="notification-option">
+                                                <input type="checkbox" checked>
+                                                <span class="checkmark"></span>
+                                                <div class="option-info">
+                                                    <strong>Email notifications</strong>
+                                                    <span>Receive order confirmations and shipping updates</span>
+                                                </div>
+                                            </label>
+                                            <label class="notification-option">
+                                                <input type="checkbox" checked>
+                                                <span class="checkmark"></span>
+                                                <div class="option-info">
+                                                    <strong>SMS notifications</strong>
+                                                    <span>Get text updates for important order changes</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="notification-category">
+                                        <h3>Marketing & Promotions</h3>
+                                        <div class="notification-options">
+                                            <label class="notification-option">
+                                                <input type="checkbox" checked>
+                                                <span class="checkmark"></span>
+                                                <div class="option-info">
+                                                    <strong>Newsletter</strong>
+                                                    <span>Weekly deals, new arrivals, and Halloween tips</span>
+                                                </div>
+                                            </label>
+                                            <label class="notification-option">
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                                <div class="option-info">
+                                                    <strong>Promotional SMS</strong>
+                                                    <span>Flash sales and exclusive mobile offers</span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <button class="save-btn" onclick="saveNotificationPreferences()">
+                                        <i class="fas fa-save"></i>
+                                        Save Preferences
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Spencer's Halloween</h3>
+                <p>Your one-stop shop for the spookiest Halloween costumes and decorations!</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                    <li><a href="account.html">My Account</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Newsletter</h4>
+                <p>Get spooky deals and updates!</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Enter your email">
+                    <button type="submit">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Spencer's Halloween Store. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be populated by JavaScript -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>Total: $<span id="cart-total">0.00</span></strong>
+            </div>
+            <a href="checkout.html" class="checkout-btn">Checkout</a>
+        </div>
+    </div>
+
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+
+    <!-- Modal for forms -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <div class="modal-body" id="modal-body">
+                <!-- Modal content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/account.js"></script>
+</body>
+</html>
