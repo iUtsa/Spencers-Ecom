@@ -245,50 +245,103 @@ body {
     font-size: 1.5rem;
     animation: bounce 2s infinite;
 }
-
 .nav-links {
     display: flex;
     list-style: none;
     gap: 2rem;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    position: relative;
 }
 
 .nav-links a {
-    color: var(--white);
+    color: var(--charcoal);
     text-decoration: none;
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1.5rem;
     border-radius: 25px;
-    transition: all 0.3s ease;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
     position: relative;
-    overflow: hidden;
+    display: block;
+    
+    /* Anti-flicker properties */
+    transform: translateZ(0); /* Hardware acceleration */
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+    will-change: transform, background-color;
+    
+    /* Smooth transitions */
+    transition: 
+        color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        background-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.nav-links a:hover, .nav-links a.active {
-    background: linear-gradient(45deg, var(--primary-orange), var(--secondary-orange));
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255, 69, 0, 0.4);
+/* Hover state - no flicker */
+.nav-links a:hover {
+    color: var(--pure-white);
+    background: var(--gradient-orange-primary);
+    transform: translateY(-2px) translateZ(0);
+    box-shadow: 0 8px 25px rgb(255, 255, 255);
 }
 
-.nav-links a::before {
+/* Active state */
+.nav-links a.active {
+    color: var(--pure-white);
+    background: var(--gradient-orange-primary);
+    box-shadow: 0 4px 15px rgba(255, 229, 244, 23);
+}
+
+/* Focus state for accessibility */
+.nav-links a:focus {
+    outline: 2px solid var(--primary-orange);
+    outline-offset: 2px;
+}
+
+/* Alternative Style 1: Underline Effect (No Flicker) */
+.nav-links-underline a {
+    color: var(--charcoal);
+    text-decoration: none;
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    display: block;
+    
+    /* Anti-flicker */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    transition: color 0.3s ease;
+}
+
+.nav-links-underline a::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: -100%;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: var(--gradient-orange-primary);
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform: translateX(-50%);
+}
+
+.nav-links-underline a:hover {
+    color: var(--primary-orange);
+}
+
+.nav-links-underline a:hover::after,
+.nav-links-underline a.active::after {
     width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
 }
-
-.nav-links a:hover::before {
-    left: 100%;
-}
-
-.nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
 /* Search Enhancements */
 .search-container {
     position: relative;
@@ -2655,3 +2708,382 @@ a:focus {
 }
 
 /* End of Enhanced CSS */
+
+
+
+
+
+
+
+/* Spencer's Logo Glow Effects */
+/* ============================== */
+
+/* Basic Glow Effect */
+.spencers-logo {
+    filter: drop-shadow(0 0 10px #ff4500) 
+            drop-shadow(0 0 20px #ff4500) 
+            drop-shadow(0 0 30px #ff4500);
+    transition: all 0.3s ease;
+}
+
+/* Enhanced Halloween Glow on Hover */
+.spencers-logo:hover {
+    filter: drop-shadow(0 0 15px #ff4500) 
+            drop-shadow(0 0 30px #ff6b35) 
+            drop-shadow(0 0 45px #ffa500)
+            drop-shadow(0 0 60px #ff4500);
+    transform: scale(1.05);
+}
+
+/* Animated Pulsing Glow */
+.spencers-logo-animated {
+    filter: drop-shadow(0 0 10px #ff4500) 
+            drop-shadow(0 0 20px #ff4500);
+    animation: spencersGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes spencersGlow {
+    0% {
+        filter: drop-shadow(0 0 10px #ff4500) 
+                drop-shadow(0 0 20px #ff4500) 
+                drop-shadow(0 0 30px #ff4500);
+        transform: scale(1);
+    }
+    100% {
+        filter: drop-shadow(0 0 20px #ff4500) 
+                drop-shadow(0 0 40px #ff6b35) 
+                drop-shadow(0 0 60px #ffa500)
+                drop-shadow(0 0 80px #ff4500);
+        transform: scale(1.02);
+    }
+}
+
+/* Spooky Halloween Glow */
+.spencers-logo-spooky {
+    filter: drop-shadow(0 0 15px #ff4500) 
+            drop-shadow(0 0 25px #8b0000) 
+            drop-shadow(0 0 35px #ff4500);
+    animation: spookyGlow 3s ease-in-out infinite;
+}
+
+@keyframes spookyGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 15px #ff4500) 
+                drop-shadow(0 0 25px #8b0000) 
+                drop-shadow(0 0 35px #ff4500);
+    }
+    25% {
+        filter: drop-shadow(0 0 20px #ff6b35) 
+                drop-shadow(0 0 30px #4b0082) 
+                drop-shadow(0 0 40px #ff4500);
+    }
+    50% {
+        filter: drop-shadow(0 0 25px #ffa500) 
+                drop-shadow(0 0 35px #1a0d2e) 
+                drop-shadow(0 0 45px #ff6b35);
+    }
+    75% {
+        filter: drop-shadow(0 0 20px #ff4500) 
+                drop-shadow(0 0 30px #2d1b3d) 
+                drop-shadow(0 0 40px #ffa500);
+    }
+}
+
+/* Intense Fiery Glow */
+.spencers-logo-fire {
+    filter: drop-shadow(0 0 10px #ff4500) 
+            drop-shadow(0 0 20px #ff6b35) 
+            drop-shadow(0 0 30px #ffa500)
+            drop-shadow(0 0 40px #ff4500)
+            drop-shadow(0 0 50px #ff6b35);
+    animation: fireGlow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes fireGlow {
+    0% {
+        filter: drop-shadow(0 0 10px #ff4500) 
+                drop-shadow(0 0 20px #ff6b35) 
+                drop-shadow(0 0 30px #ffa500);
+        transform: scale(1);
+    }
+    100% {
+        filter: drop-shadow(0 0 25px #ff4500) 
+                drop-shadow(0 0 50px #ff6b35) 
+                drop-shadow(0 0 75px #ffa500)
+                drop-shadow(0 0 100px #ff4500);
+        transform: scale(1.03);
+    }
+}
+
+/* Multi-colored Halloween Glow */
+.spencers-logo-rainbow {
+    animation: rainbowGlow 4s linear infinite;
+}
+
+@keyframes rainbowGlow {
+    0% {
+        filter: drop-shadow(0 0 20px #ff4500) 
+                drop-shadow(0 0 40px #ff4500);
+    }
+    16.66% {
+        filter: drop-shadow(0 0 20px #ff6b35) 
+                drop-shadow(0 0 40px #ff6b35);
+    }
+    33.33% {
+        filter: drop-shadow(0 0 20px #ffa500) 
+                drop-shadow(0 0 40px #ffa500);
+    }
+    50% {
+        filter: drop-shadow(0 0 20px #8b0000) 
+                drop-shadow(0 0 40px #8b0000);
+    }
+    66.66% {
+        filter: drop-shadow(0 0 20px #4b0082) 
+                drop-shadow(0 0 40px #4b0082);
+    }
+    83.33% {
+        filter: drop-shadow(0 0 20px #2d1b3d) 
+                drop-shadow(0 0 40px #2d1b3d);
+    }
+    100% {
+        filter: drop-shadow(0 0 20px #ff4500) 
+                drop-shadow(0 0 40px #ff4500);
+    }
+}
+
+/* Flickering Neon Effect */
+.spencers-logo-neon {
+    filter: drop-shadow(0 0 5px #ff4500) 
+            drop-shadow(0 0 10px #ff4500) 
+            drop-shadow(0 0 15px #ff4500);
+    animation: neonFlicker 0.1s infinite alternate;
+}
+
+@keyframes neonFlicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        filter: drop-shadow(0 0 5px #ff4500) 
+                drop-shadow(0 0 10px #ff4500) 
+                drop-shadow(0 0 15px #ff4500)
+                drop-shadow(0 0 20px #ff4500);
+    }
+    20%, 24%, 55% {
+        filter: drop-shadow(0 0 2px #ff4500) 
+                drop-shadow(0 0 5px #ff4500);
+    }
+}
+
+/* Subtle Professional Glow */
+.spencers-logo-subtle {
+    filter: drop-shadow(0 0 8px rgba(255, 69, 0, 0.6)) 
+            drop-shadow(0 0 15px rgba(255, 69, 0, 0.4));
+    transition: all 0.3s ease;
+}
+
+.spencers-logo-subtle:hover {
+    filter: drop-shadow(0 0 12px rgba(255, 69, 0, 0.8)) 
+            drop-shadow(0 0 25px rgba(255, 69, 0, 0.6))
+            drop-shadow(0 0 35px rgba(255, 69, 0, 0.4));
+}
+
+/* 3D Depth Glow */
+.spencers-logo-3d {
+    filter: drop-shadow(2px 2px 0px #cc3300)
+            drop-shadow(4px 4px 0px #991100)
+            drop-shadow(6px 6px 10px #ff4500)
+            drop-shadow(0 0 20px #ff4500);
+    transition: all 0.3s ease;
+}
+
+.spencers-logo-3d:hover {
+    filter: drop-shadow(3px 3px 0px #cc3300)
+            drop-shadow(6px 6px 0px #991100)
+            drop-shadow(9px 9px 15px #ff4500)
+            drop-shadow(0 0 30px #ff4500);
+    transform: translate(-2px, -2px);
+}
+
+/* Ghostly Glow */
+.spencers-logo-ghost {
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.7))
+            drop-shadow(0 0 30px rgba(255, 69, 0, 0.5))
+            drop-shadow(0 0 45px rgba(255, 255, 255, 0.3));
+    animation: ghostGlow 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes ghostGlow {
+    0% {
+        opacity: 0.8;
+        filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.7))
+                drop-shadow(0 0 30px rgba(255, 69, 0, 0.5));
+    }
+    100% {
+        opacity: 1;
+        filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.9))
+                drop-shadow(0 0 50px rgba(255, 69, 0, 0.7))
+                drop-shadow(0 0 75px rgba(255, 255, 255, 0.5));
+    }
+}
+
+/* Usage Examples and Container Styles */
+.logo-container {
+    display: inline-block;
+    padding: 20px;
+    /* Background can enhance the glow effect */
+    background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.8) 100%);
+    border-radius: 10px;
+}
+
+/* Logo Sizing Options */
+.spencers-logo {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Size Variations */
+.spencers-logo-small {
+    width: 150px;
+    height: auto;
+}
+
+.spencers-logo-medium {
+    width: 250px;
+    height: auto;
+}
+
+.spencers-logo-large {
+    width: 350px;
+    height: auto;
+}
+
+.spencers-logo-xlarge {
+    width: 450px;
+    height: auto;
+}
+
+.spencers-logo-huge {
+    width: 600px;
+    height: auto;
+}
+
+.spencers-logo-massive {
+    width: 800px;
+    height: auto;
+}
+
+/* Hero Section Large Logo */
+.spencers-logo-hero {
+    width: min(80vw, 500px);
+    height: auto;
+    max-width: 500px;
+}
+
+/* Navigation Logo (smaller) */
+.spencers-logo-nav {
+    width: 120px;
+    height: auto;
+}
+
+/* Responsive sizing with breakpoints */
+@media (max-width: 768px) {
+    .spencers-logo-large {
+        width: 280px;
+    }
+    
+    .spencers-logo-xlarge {
+        width: 320px;
+    }
+    
+    .spencers-logo-huge {
+        width: 400px;
+    }
+    
+    .spencers-logo-massive {
+        width: 500px;
+    }
+    
+    .spencers-logo-hero {
+        width: min(90vw, 350px);
+    }
+}
+
+@media (max-width: 480px) {
+    .spencers-logo-large {
+        width: 220px;
+    }
+    
+    .spencers-logo-xlarge {
+        width: 260px;
+    }
+    
+    .spencers-logo-huge {
+        width: 300px;
+    }
+    
+    .spencers-logo-massive {
+        width: 350px;
+    }
+    
+    .spencers-logo-hero {
+        width: min(95vw, 280px);
+    }
+}
+
+/* Enhanced Glow for Larger Logos */
+.spencers-logo-large.spencers-logo-animated,
+.spencers-logo-xlarge.spencers-logo-animated,
+.spencers-logo-huge.spencers-logo-animated,
+.spencers-logo-massive.spencers-logo-animated {
+    filter: drop-shadow(0 0 15px #ff4500) 
+            drop-shadow(0 0 30px #ff4500)
+            drop-shadow(0 0 45px #ff4500);
+}
+
+.spencers-logo-large.spencers-logo-fire,
+.spencers-logo-xlarge.spencers-logo-fire,
+.spencers-logo-huge.spencers-logo-fire,
+.spencers-logo-massive.spencers-logo-fire {
+    filter: drop-shadow(0 0 20px #ff4500) 
+            drop-shadow(0 0 40px #ff6b35) 
+            drop-shadow(0 0 60px #ffa500)
+            drop-shadow(0 0 80px #ff4500)
+            drop-shadow(0 0 100px #ff6b35);
+}
+
+/* For dark backgrounds */
+.dark-background .spencers-logo {
+    filter: drop-shadow(0 0 15px #ff4500) 
+            drop-shadow(0 0 30px #ff4500) 
+            drop-shadow(0 0 45px #ff4500);
+}
+
+/* For light backgrounds */
+.light-background .spencers-logo {
+    filter: drop-shadow(0 0 10px #ff4500) 
+            drop-shadow(0 0 20px rgba(255, 69, 0, 0.8));
+}
+
+/* Performance optimization */
+.spencers-logo {
+    will-change: filter, transform;
+    backface-visibility: hidden;
+}
+
+/* Accessibility - Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .spencers-logo-animated,
+    .spencers-logo-spooky,
+    .spencers-logo-fire,
+    .spencers-logo-rainbow,
+    .spencers-logo-neon,
+    .spencers-logo-ghost {
+        animation: none;
+    }
+    
+    .spencers-logo-animated,
+    .spencers-logo-spooky,
+    .spencers-logo-fire,
+    .spencers-logo-ghost {
+        filter: drop-shadow(0 0 10px #ff4500) 
+                drop-shadow(0 0 20px #ff4500);
+    }
+}
